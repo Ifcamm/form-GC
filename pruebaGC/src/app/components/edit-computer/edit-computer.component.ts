@@ -9,10 +9,11 @@ import { ApiComputersService } from '../../services/api-computers.service';
   styleUrls: ['./edit-computer.component.css'],
 })
 export class EditComputerComponent implements OnInit {
+  //input computer from father
   @Input() computer!: Computer;
+  //sending product but could be a boolean so need be changed to save resources
   @Output() computerModified = new EventEmitter<Computer>();
-  @Output() isEditing = new EventEmitter<Boolean>();
-
+  //declaration of pc - need to remove "!"
   pc!: FormGroup;
   constructor(private apiComputersService: ApiComputersService) {}
   ngOnInit(): void {
@@ -21,7 +22,7 @@ export class EditComputerComponent implements OnInit {
   }
 
   onUpdate() {}
-
+  //assign input computer to form
   createForm() {
     this.pc = new FormGroup({
       gce_id: new FormControl(this.computer._id),
@@ -38,7 +39,7 @@ export class EditComputerComponent implements OnInit {
       gce_estado: new FormControl(this.computer.gce_estado),
     });
   }
-
+  //update computer an emit notification to father
   updateComputer() {
     this.assign();
     this.apiComputersService
@@ -47,7 +48,7 @@ export class EditComputerComponent implements OnInit {
         this.onModifyComputer();
       });
   }
-
+  //assign form to computer
   assign() {
     this.computer = {
       _id: this.pc.controls.gce_id.value,
@@ -64,7 +65,7 @@ export class EditComputerComponent implements OnInit {
       gce_estado: this.pc.controls.gce_estado.value,
     };
   }
-
+  //emitter to father
   onModifyComputer() {
     this.computerModified.emit(this.computer);
   }

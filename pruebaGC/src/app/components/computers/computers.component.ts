@@ -1,5 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Computer } from '../../models/computer';
 import { ApiComputersService } from '../../services/api-computers.service';
 
@@ -9,8 +9,11 @@ import { ApiComputersService } from '../../services/api-computers.service';
   styleUrls: ['./computers.component.css'],
 })
 export class ComputersComponent implements OnInit {
+  //Semaphore to open edition
   isEditing = false;
+  //array of computers
   computers: Computer[] = [];
+  //init for computer
   computer: Computer = {
     _id: '',
     gce_nombre_equipo: '',
@@ -26,10 +29,12 @@ export class ComputersComponent implements OnInit {
     gce_estado: false,
   };
 
+  //declaration pc without init - need to remove "!"
   pc!: FormGroup;
 
   constructor(private apiComputersService: ApiComputersService) {}
 
+  //init to Groupform
   createForm() {
     this.pc = new FormGroup({
       gce_id: new FormControl(''),
@@ -53,7 +58,7 @@ export class ComputersComponent implements OnInit {
       this.computers = computers;
     });
   }
-
+  //create new computer
   onCreate() {
     this.asign();
     this.apiComputersService.post(this.computer).subscribe(() => {
@@ -62,15 +67,14 @@ export class ComputersComponent implements OnInit {
       });
     });
   }
-
+  //toogle is editing - asign computer to edition
   onEdit(id: string) {
     if (id) {
       this.computer = <Computer>this.computers.find((item) => id === item._id);
       this.isEditing = true;
-      console.log(this.isEditing);
     }
   }
-
+  //Asign from form to computer
   asign() {
     this.computer = {
       _id: this.pc.controls.gce_id.value,
@@ -87,7 +91,7 @@ export class ComputersComponent implements OnInit {
       gce_estado: this.pc.controls.gce_estado.value,
     };
   }
-
+  //delete computer
   deleteComputer(id: string) {
     console.log(id);
     this.apiComputersService.delete(id).subscribe((item) => {
@@ -97,9 +101,8 @@ export class ComputersComponent implements OnInit {
       );
     });
   }
-
+  //Receipt output from child
   onModifyComputer(computer: Computer) {
-    console.log('holi');
     this.computer = computer;
     this.isEditing = !this.isEditing;
     this.apiComputersService
