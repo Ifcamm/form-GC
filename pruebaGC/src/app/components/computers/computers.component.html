@@ -1,0 +1,194 @@
+<body>
+  <div class="container">
+    <div class="display-flex mb-4" style="height: 40px; width: 100%">
+      <h6 style="flex: 1 1 auto">Registro computadores</h6>
+      <img src="assets/img/gc-icon.png" style="height: 100%" />
+    </div>
+    <!-- Formulario de inserción -->
+    <form
+      id="register-form"
+      class="row"
+      [formGroup]="pc"
+      (ngSubmit)="onCreate()"
+      #createComputerForm="ngForm"
+    >
+      <!-- gce_nombre_equipo -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_nombre_equipo"
+          placeholder="Nombre del equipo"
+        />
+      </div>
+      <!-- gce_board -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_board"
+          placeholder="Board"
+        />
+      </div>
+      <!-- gce_case -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_case"
+          placeholder="Case"
+        />
+      </div>
+      <!-- gce_procesador -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_procesador"
+          placeholder="Procesador"
+        />
+      </div>
+      <!-- gce_grafica -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_grafica"
+          placeholder="Gráfica"
+        />
+      </div>
+      <!-- gce_ram -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_ram"
+          placeholder="Ram"
+        />
+      </div>
+      <!-- gce_disco_duro -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_disco_duro"
+          placeholder="Disco"
+        />
+      </div>
+      <!-- gce_teclado -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_teclado"
+          placeholder="Teclado"
+        />
+      </div>
+      <!-- gce_mouse -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_mouse"
+          placeholder="Mouse"
+        />
+      </div>
+      <!-- gce_pantalla -->
+      <div class="mb-3 col-sm-6 col-lg-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_pantalla"
+          placeholder="Pantalla"
+        />
+      </div>
+      <!-- gce_estado -->
+      <label class="mb-3 col-sm-6 col-lg-6 position-relative">
+        <div class="position-absolute">Estado</div>
+        <select class="form-select" formControlName="gce_estado">
+          <option value="0">Inactivo</option>
+          <option value="1" selected>Activo</option>
+        </select>
+      </label>
+      <div class="col-12 mb-3 display-grid">
+        <button type="submit" class="btn btn-primary">
+          <i
+            class="fas fa-plus-square me-2 vertical-align-middle"
+            style="font-size: 1.2em"
+          ></i>
+          Agregar
+        </button>
+      </div>
+    </form>
+
+    <h6 class="ms-5">Computadores</h6>
+    <!-- Listado -->
+    <div class="card">
+      <div class="card-body">
+        <table id="list-table" class="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Board</th>
+              <th>Case</th>
+              <th>Procesador</th>
+              <th>Gráfica</th>
+              <th>Ram</th>
+              <th>Disco duro</th>
+              <th>Teclado</th>
+              <th>Mouse</th>
+              <th>Pantalla</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let computer of computers" appRowStyle class="tr">
+              <td>{{ computer.gce_nombre_equipo | capitalize }}</td>
+              <td>{{ computer.gce_board | capitalize }}</td>
+              <td>{{ computer.gce_case | capitalize }}</td>
+              <td>{{ computer.gce_procesador | capitalize }}</td>
+              <td>{{ computer.gce_grafica | capitalize }}</td>
+              <td>{{ computer.gce_ram | capitalize }}</td>
+              <td>{{ computer.gce_disco_duro | capitalize }}</td>
+              <td>{{ computer.gce_teclado | capitalize }}</td>
+              <td>{{ computer.gce_mouse | capitalize }}</td>
+              <td>{{ computer.gce_pantalla | capitalize }}</td>
+              <td>{{ computer.gce_estado }}</td>
+              <td>
+                <img
+                  src="../../../assets/img/icons8-edit-64.png"
+                  alt=""
+                  (click)="onEdit(computer._id)"
+                />
+              </td>
+              <td>
+                <img
+                  src="../../../assets/img/icons8-delete-100.png"
+                  (click)="deleteComputer(computer._id)"
+                  alt=""
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+
+<app-edit-computer
+  [computer]="computer"
+  (computerModified)="onModifyComputer($event)"
+  *ngIf="isEditing === true"
+></app-edit-computer>

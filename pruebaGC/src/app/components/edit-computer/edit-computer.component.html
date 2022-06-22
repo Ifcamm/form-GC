@@ -1,0 +1,108 @@
+<body>
+  <div class="container">
+    <div class="display-flex mb-4" style="height: 40px; width: 100%">
+      <h6 style="flex: 1 1 auto">Editar rol</h6>
+    </div>
+    <!-- Formulario de inserción  [formGroup]="pc"-->
+    <form
+      id="register-form"
+      class="row"
+      [formGroup]="pc"
+      (ngSubmit)="onUpdate()"
+      #createComputerForm="ngForm"
+    >
+      <!-- gce_nombre_equipo -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_nombre_equipo"
+          placeholder="Nombre del equipo"
+        />
+      </div>
+      <!-- gce_board -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_board"
+          placeholder="Board"
+        />
+      </div>
+      <!-- gce_case -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_case"
+          placeholder="Case"
+        />
+      </div>
+      <!-- gce_procesador -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_procesador"
+          placeholder="Procesador"
+        />
+      </div>
+
+      <!-- gce_teclado -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_teclado"
+          placeholder="Teclado"
+        />
+      </div>
+      <!-- gce_mouse -->
+      <div class="mb-3 col-lg-4 col-sm-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_mouse"
+          placeholder="Mouse"
+        />
+      </div>
+      <!-- gce_pantalla -->
+      <div class="mb-3 col-sm-6 col-lg-6">
+        <input
+          required
+          class="form-control"
+          type="text"
+          formControlName="gce_pantalla"
+          placeholder="Pantalla"
+        />
+      </div>
+      <!-- gce_estado -->
+      <label class="mb-3 col-sm-6 col-lg-6 position-relative">
+        <div class="position-absolute">Estado</div>
+        <select class="form-select" formControlName="gce_estado">
+          <option value="0">Inactivo</option>
+          <option value="1" selected>Activo</option>
+        </select>
+      </label>
+      <div class="col-12 mb-3 display-grid">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="updateComputer()"
+        >
+          <i
+            class="fas fa-plus-square me-2 vertical-align-middle"
+            style="font-size: 1.2em"
+          ></i>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
